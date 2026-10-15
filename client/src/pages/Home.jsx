@@ -13,7 +13,8 @@ export default function Home() {
         className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-96 w-96 -translate-x-1/2 rounded-full bg-violet-600/20 blur-[120px]"
       />
 
-      <section className="mx-auto flex min-h-[calc(100vh-65px)] max-w-6xl flex-col justify-center px-6 py-24">
+      {/* Hero Section with animation applied correctly */}
+      <section className="animate-fade-up mx-auto flex min-h-[calc(100vh-65px)] max-w-6xl flex-col justify-center px-6 py-24">
         <div className="mb-8 flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-300">
           <span className="h-2 w-2 rounded-full bg-emerald-400" />
           Computer Science Student · Kenya
@@ -87,58 +88,61 @@ export default function Home() {
           <ArrowDown size={16} />
         </a>
       </section>
+
+      {/* Skills Section */}
       <section id="skills" className="border-t border-white/10 px-6 py-24">
-  <div className="mx-auto max-w-6xl">
-    <SectionHeading
-      eyebrow="What I work with"
-      title="Skills & technologies"
-      description="Tools, languages, and frameworks I use to build robust software applications."
-    />
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading
+            eyebrow="What I work with"
+            title="Skills & technologies"
+            description="Tools, languages, and frameworks I use to build robust software applications."
+          />
 
-    <div className="flex flex-wrap gap-3">
-      {[
-        'Java 21',
-        'JavaFX',
-        'Python',
-        'PHP',
-        'JavaScript',
-        'HTML',
-        'CSS',
-        'Prolog',
-        'React',
-        'Tailwind CSS',
-        'MySQL',
-        'REST API Integration',
-        'Git & GitHub',
-        'Maven',
-        'Data Analysis',
-      ].map((skill) => (
-        <span
-          key={skill}
-          className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-zinc-300 transition hover:border-violet-400/40"
-        >
-          {skill}
-        </span>
-      ))}
-    </div>
-  </div>
-</section>
+          <div className="flex flex-wrap gap-3">
+            {[
+              'Java 21',
+              'JavaFX',
+              'Python',
+              'PHP',
+              'JavaScript',
+              'HTML',
+              'CSS',
+              'Prolog',
+              'React',
+              'Tailwind CSS',
+              'MySQL',
+              'REST API Integration',
+              'Git & GitHub',
+              'Maven',
+              'Data Analysis',
+            ].map((skill) => (
+              <span
+                key={skill}
+                className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-zinc-300 transition hover:border-violet-400/40"
+              >
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
 
-<section id="projects" className="border-t border-white/10 px-6 py-24">
-  <div className="mx-auto max-w-6xl">
-    <SectionHeading
-      eyebrow="Selected work"
-      title="Projects I've explored"
-      description="A selection of practical applications and software systems I've built."
-    />
+      {/* Projects Section */}
+      <section id="projects" className="border-t border-white/10 px-6 py-24">
+        <div className="mx-auto max-w-6xl">
+          <SectionHeading
+            eyebrow="Selected work"
+            title="Projects I've explored"
+            description="A selection of practical applications and software systems I've built."
+          />
 
-    <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-      {projects.map((project) => (
-        <ProjectCard key={project.title} project={project} />
-      ))}
-    </div>
-  </div>
-</section>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project) => (
+              <ProjectCard key={project.title} project={project} />
+            ))}
+          </div>
+        </div>
+      </section>
     </main>
   )
 }
