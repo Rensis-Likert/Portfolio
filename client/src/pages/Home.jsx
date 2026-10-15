@@ -1,5 +1,8 @@
 import { ArrowDown, ArrowRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import SectionHeading from '../components/SectionHeading'
+import ProjectCard from '../components/ProjectCard'
+import { projects } from '../data/projects'
 
 export default function Home() {
   return (
@@ -84,6 +87,58 @@ export default function Home() {
           <ArrowDown size={16} />
         </a>
       </section>
+      <section id="skills" className="border-t border-white/10 px-6 py-24">
+  <div className="mx-auto max-w-6xl">
+    <SectionHeading
+      eyebrow="What I work with"
+      title="Skills & technologies"
+      description="Tools, languages, and frameworks I use to build robust software applications."
+    />
+
+    <div className="flex flex-wrap gap-3">
+      {[
+        'Java 21',
+        'JavaFX',
+        'Python',
+        'PHP',
+        'JavaScript',
+        'HTML',
+        'CSS',
+        'Prolog',
+        'React',
+        'Tailwind CSS',
+        'MySQL',
+        'REST API Integration',
+        'Git & GitHub',
+        'Maven',
+        'Data Analysis',
+      ].map((skill) => (
+        <span
+          key={skill}
+          className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-zinc-300 transition hover:border-violet-400/40"
+        >
+          {skill}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section id="projects" className="border-t border-white/10 px-6 py-24">
+  <div className="mx-auto max-w-6xl">
+    <SectionHeading
+      eyebrow="Selected work"
+      title="Projects I've explored"
+      description="A selection of practical applications and software systems I've built."
+    />
+
+    <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {projects.map((project) => (
+        <ProjectCard key={project.title} project={project} />
+      ))}
+    </div>
+  </div>
+</section>
     </main>
   )
 }
