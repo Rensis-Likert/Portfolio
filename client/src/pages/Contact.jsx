@@ -1,168 +1,176 @@
 import { useState } from 'react'
-import { Send, CheckCircle2, Mail, MapPin } from 'lucide-react'
+import { Send } from 'lucide-react'
+
+const initialForm = {
+  name: '',
+  email: '',
+  message: '',
+}
 
 export default function Contact() {
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    message: '',
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitted, setSubmitted] = useState(false)
+  const [form, setForm] = useState(initialForm)
+  const [status, setStatus] = useState('')
+  const [error, setError] = useState('')
+  const [submitting, setSubmitting] = useState(false)
 
   function handleChange(event) {
     const { name, value } = event.target
+
     setForm((previous) => ({
       ...previous,
       [name]: value,
     }))
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
-    setIsSubmitting(true)
 
-    // Simulate backend submission (Ready for your Express API)
-    setTimeout(() => {
-      setIsSubmitting(false)
-      setSubmitted(true)
-      console.log('Contact form submitted:', form)
-    }, 1000)
+    setSubmitting(true)
+    setStatus('')
+    setError('')
+
+    try {
+      const response = await fetch(
+        'http://localhost:5000/api/contact',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(form),
+        }
+      )
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(
+          result.error || 'Unable to send your message.'
+        )
+      }
+
+      setStatus(result.message)
+      setForm(initialForm)
+    } catch (err) {
+      setError(
+        err.message ||
+        'Could not reach the server. Please try again.'
+      )
+    } finally {
+      setSubmitting(false)
+    }
   }
 
+  const inputClass =
+    'w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-zinc-100 outline-none transition placeholder:text-zinc-600 focus:border-violet-400'
+
   return (
-    <main className="relative isolate min-h-[calc(100vh-65px)] overflow-hidden bg-zinc-950 px-6 py-20 text-zinc-100">
-      {/* Decorative background glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-40 left-1/2 -z-10 h-96 w-96 -translate-x-1/2 rounded-full bg-violet-600/20 blur-[120px]"
-      />
-
-      <div className="mx-auto max-w-4xl">
-        <div className="mb-8 flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-zinc-300">
-          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-          Open for opportunities & internships
-        </div>
-
-        <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Let's connect.</h1>
-        <p className="mt-4 text-base text-zinc-400 sm:text-lg">
-          Have an opportunity, project, or question? Drop a message below and I'll get back to you promptly.
+    <main className="min-h-screen bg-zinc-950 px-6 py-20 text-zinc-100">
+      <div className="mx-auto max-w-2xl">
+        <p className="text-sm font-medium uppercase tracking-[0.2em] text-violet-400">
+          Get in touch
         </p>
 
-        <div className="mt-12 grid gap-12 lg:grid-cols-3">
-          {/* Contact Details Sidebar */}
-          <div className="space-y-6 lg:col-span-1">
-            <div className="rounded-2xl border border-white/10 bg-white/[0.02] p-6 space-y-4">
-              <div className="flex items-center gap-3 text-zinc-300">
-                <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3 text-violet-400">
-                  <Mail size={20} />
-                </div>
-                <div>
-                  <p className="text-xs text-zinc-500 uppercase tracking-wider">Email</p>
-                  <a href="mailto:hunyurenso@gmail.com" className="text-sm font-medium hover:text-violet-400 transition">
-                    hunyurenso@gmail.com
-                  </a>
-                </div>
-              </div>
+        <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
+          Let's connect.
+        </h1>
 
-              <div className="flex items-center gap-3 text-zinc-300">
-                <div className="rounded-xl border border-white/10 bg-white/[0.04] p-3 text-violet-400">
-                  <MapPin size={20} />
-                </div>
-                <div>
-                  <p className="text-xs text-zinc-500 uppercase tracking-wider">Location</p>
-                  <p className="text-sm font-medium">Nyeri, Kenya</p>
-                </div>
-              </div>
-            </div>
+        <p className="mt-4 leading-7 text-zinc-400">
+          Have a project, collaboration, or opportunity in mind?
+          Send me a message.
+        </p>
+
+        <form
+          onSubmit={handleSubmit}
+          className="mt-10 space-y-6"
+        >
+          <div>
+            <label
+              htmlFor="name"
+              className="mb-2 block text-sm text-zinc-300"
+            >
+              Name
+            </label>
+
+            <input
+              id="name"
+              name="name"
+              value={form.name}
+              onChange={handleChange}
+              required
+              minLength={1}
+              maxLength={100}
+              autoComplete="name"
+              className={inputClass}
+              placeholder="Your name"
+            />
           </div>
 
-          {/* Form Container */}
-          <div className="lg:col-span-2">
-            {submitted ? (
-              <div className="flex flex-col items-center justify-center rounded-2xl border border-emerald-500/20 bg-emerald-500/[0.02] p-12 text-center">
-                <CheckCircle2 size={48} className="text-emerald-400 mb-4" />
-                <h3 className="text-xl font-semibold text-white">Message sent successfully!</h3>
-                <p className="mt-2 text-zinc-400">Thank you for reaching out. I'll respond as soon as possible.</p>
-                <button
-                  onClick={() => {
-                    setSubmitted(false)
-                    setForm({ name: '', email: '', message: '' })
-                  }}
-                  className="mt-6 rounded-xl border border-white/10 px-5 py-2.5 text-sm font-medium hover:bg-white/5 transition"
-                >
-                  Send another message
-                </button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6 rounded-2xl border border-white/10 bg-white/[0.02] p-8">
-                <div>
-                  <label htmlFor="name" className="mb-2 block text-sm font-medium text-zinc-300">
-                    Your Name
-                  </label>
-                  <input
-                    id="name"
-                    name="name"
-                    value={form.name}
-                    onChange={handleChange}
-                    required
-                    maxLength={100}
-                    placeholder="John Doe"
-                    className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-zinc-100 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20"
-                  />
-                </div>
+          <div>
+            <label
+              htmlFor="email"
+              className="mb-2 block text-sm text-zinc-300"
+            >
+              Email
+            </label>
 
-                <div>
-                  <label htmlFor="email" className="mb-2 block text-sm font-medium text-zinc-300">
-                    Email Address
-                  </label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                    maxLength={254}
-                    placeholder="john@example.com"
-                    className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-zinc-100 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="mb-2 block text-sm font-medium text-zinc-300">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={form.message}
-                    onChange={handleChange}
-                    required
-                    maxLength={5000}
-                    rows={5}
-                    placeholder="Tell me about your project or inquiry..."
-                    className="w-full resize-y rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3.5 text-zinc-100 outline-none transition focus:border-violet-400 focus:ring-2 focus:ring-violet-400/20"
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-violet-500 px-6 py-4 font-medium text-white transition hover:bg-violet-400 disabled:opacity-50"
-                >
-                  {isSubmitting ? (
-                    'Sending message...'
-                  ) : (
-                    <>
-                      Send message <Send size={16} />
-                    </>
-                  )}
-                </button>
-              </form>
-            )}
+            <input
+              id="email"
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+              maxLength={254}
+              autoComplete="email"
+              className={inputClass}
+              placeholder="you@example.com"
+            />
           </div>
-        </div>
+
+          <div>
+            <label
+              htmlFor="message"
+              className="mb-2 block text-sm text-zinc-300"
+            >
+              Message
+            </label>
+
+            <textarea
+              id="message"
+              name="message"
+              value={form.message}
+              onChange={handleChange}
+              required
+              minLength={1}
+              maxLength={5000}
+              rows={6}
+              className={`${inputClass} resize-y`}
+              placeholder="Tell me what you have in mind..."
+            />
+          </div>
+
+          {status && (
+            <p role="status" className="text-sm text-emerald-400">
+              {status}
+            </p>
+          )}
+
+          {error && (
+            <p role="alert" className="text-sm text-red-400">
+              {error}
+            </p>
+          )}
+
+          <button
+            type="submit"
+            disabled={submitting}
+            className="inline-flex items-center gap-2 rounded-xl bg-violet-500 px-6 py-3 font-medium text-white transition hover:bg-violet-400 disabled:cursor-not-allowed disabled:opacity-60"
+          >
+            <Send size={17} />
+            {submitting ? 'Sending...' : 'Send message'}
+          </button>
+        </form>
       </div>
     </main>
   )
