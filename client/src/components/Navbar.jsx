@@ -26,7 +26,7 @@ export default function Navbar() {
           className="text-lg font-bold tracking-tight"
           onClick={() => setMenuOpen(false)}
         >
-          R<span className="text-violet-400">.</span>
+          Portfolio<span className="text-violet-400">.</span>
         </Link>
 
         <div className="hidden items-center gap-8 md:flex">
