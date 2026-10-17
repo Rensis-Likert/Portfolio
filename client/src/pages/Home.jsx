@@ -285,7 +285,7 @@ const certificates = [
     date: '20 July 2026',
     description:
       'Completed Data Analytics Training conducted by the ICT Authority, Kenya, in collaboration with Sigma Digital Technical Institute.',
-    image: '/certificates/data-analytics.jpg',
+    image: `${import.meta.env.BASE_URL}certificates/data-analytics.jpg`,
   },
   {
     title: 'SkillQuest – Generative AI Literacy',
@@ -293,7 +293,7 @@ const certificates = [
     date: '15 October 2026',
     description:
       'Successfully passed the SkillQuest Generative AI Literacy assessment, demonstrating knowledge of generative AI concepts.',
-    image: '/certificates/generative-ai-literacy.jpg',
+    image: `${import.meta.env.BASE_URL}certificates/generative-ai-literacy.jpg`,
   },
 ]
 
@@ -546,7 +546,7 @@ useEffect(() => {
               </a>
 
               <a
-                href="/resume.pdf"
+                href={`${import.meta.env.BASE_URL}resume.pdf`}
                 download="Rensis-Resume.pdf"
                 className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3.5 font-semibold text-zinc-200 transition hover:border-violet-400/60 hover:bg-white/5"
               >
@@ -597,7 +597,7 @@ useEffect(() => {
 
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-900 p-3">
               <img
-                src="/profile.jpg"
+                src={`${import.meta.env.BASE_URL}profile.jpg`}
                 alt="Portrait of Rensis"
                 className="aspect-[4/5] w-full rounded-[1.5rem] object-cover"
               />
@@ -625,7 +625,7 @@ useEffect(() => {
             <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-violet-500/30 via-fuchsia-500/10 to-indigo-500/30 blur-xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-900 p-3">
               <img
-                src="/rensis.jpeg"
+                src={`${import.meta.env.BASE_URL}rensis.jpeg`}
                 alt="Portrait of Rensis"
                 loading="lazy"
                 className="image-reveal aspect-[4/5] w-full rounded-[1.5rem] object-cover"

@@ -7,7 +7,7 @@ export const projects = [
     technologies: ['JavaScript', 'HTML', 'CSS', 'Full Stack'],
     github: 'https://github.com/Rensis-Likert',
     demo: '',
-    image: '/projects/events.png',
+    image: `${import.meta.env.BASE_URL}projects/events.png`,
   },
   {
     title: 'Drink Depot E-Commerce Platform',
@@ -17,7 +17,7 @@ export const projects = [
     technologies: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS'],
     github: 'https://github.com/Rensis-Likert',
     demo: '',
-    image: '/projects/The_sentinentals.png',
+    image: `${import.meta.env.BASE_URL}projects/The_sentinentals.png`,
   },
   {
     title: 'Payroll Management System',
@@ -27,7 +27,7 @@ export const projects = [
     technologies: ['Java 21', 'JavaFX', 'MySQL', 'Maven'],
     github: 'https://github.com/Rensis-Likert',
     demo: '',
-    image: '/projects/Payroll_project.png',
+    image: `${import.meta.env.BASE_URL}projects/Payroll_project.png`,
   },
   {
     title: 'Developer Portfolio',
@@ -37,6 +37,6 @@ export const projects = [
     technologies: ['React', 'Tailwind CSS', 'Node.js'],
     github: 'https://github.com/Rensis-Likert/Portfolio',
     demo: '',
-    image: '/projects/Developer_portfolio.png',
+    image: `${import.meta.env.BASE_URL}projects/Developer_portfolio.png`,
   },
 ]
