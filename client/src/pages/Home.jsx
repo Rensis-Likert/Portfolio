@@ -625,7 +625,7 @@ useEffect(() => {
             <div className="absolute -inset-3 rounded-[2rem] bg-gradient-to-br from-violet-500/30 via-fuchsia-500/10 to-indigo-500/30 blur-xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-zinc-900 p-3">
               <img
-                src="/image.jpg"
+                src="/rensis.jpeg"
                 alt="Portrait of Rensis"
                 loading="lazy"
                 className="image-reveal aspect-[4/5] w-full rounded-[1.5rem] object-cover"
