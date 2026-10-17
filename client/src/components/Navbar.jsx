@@ -19,7 +19,7 @@ export default function Navbar() {
           onClick={() => setOpen(false)}
           className="text-2xl font-black tracking-tight text-white"
         >
-          R<span className="text-violet-400">.</span>
+          PORTFOLIO<span className="text-violet-400">.</span>
         </a>
 
         <div className="hidden items-center gap-8 md:flex">

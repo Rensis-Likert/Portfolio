@@ -3,6 +3,16 @@ import { ArrowUpRight } from 'lucide-react'
 export default function ProjectCard({ project }) {
   return (
     <article className="group flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.02] p-6 transition duration-300 hover:-translate-y-1 hover:border-violet-400/40 hover:bg-white/[0.04]">
+      
+      <div className="mb-5 overflow-hidden rounded-xl border border-white/10 bg-zinc-950">
+        <img
+          src={project.image}
+          alt={`${project.title} screenshot`}
+          loading="lazy"
+          className="aspect-video w-full object-cover transition duration-500 hover:scale-105"
+        />
+      </div>
+
       <div className="mb-5 flex items-start justify-between">
         <span className="rounded-lg bg-violet-500/10 px-3 py-2 text-sm font-medium text-violet-300">
           {project.category}
@@ -51,6 +61,7 @@ export default function ProjectCard({ project }) {
           Live demo <ArrowUpRight size={16} />
         </a>
       )}
+      
     </article>
   )
 }

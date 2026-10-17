@@ -1,3 +1,5 @@
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
+
 import { useState } from 'react'
 import { Send } from 'lucide-react'
 
@@ -30,16 +32,11 @@ export default function Contact() {
     setError('')
 
     try {
-      const response = await fetch(
-        'http://localhost:5000/api/contact',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(form),
-        }
-      )
+      const response = await fetch(`${API_URL}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
 
       const result = await response.json()
 
@@ -65,7 +62,10 @@ export default function Contact() {
     'w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-zinc-100 outline-none transition placeholder:text-zinc-600 focus:border-violet-400'
 
   return (
-    <main className="min-h-screen bg-zinc-950 px-6 py-20 text-zinc-100">
+    <section
+      id="contact"
+      className="scroll-mt-24 border-t border-white/5 bg-zinc-950 px-6 py-24 text-zinc-100 sm:py-28"
+    >
       <div className="mx-auto max-w-2xl">
         <p className="text-sm font-medium uppercase tracking-[0.2em] text-violet-400">
           Get in touch
@@ -172,6 +172,6 @@ export default function Contact() {
           </button>
         </form>
       </div>
-    </main>
+    </section>
   )
 }
